@@ -229,7 +229,7 @@ void Graph::loadDistances(const string& filename) {
             walking = stod(walkingStr); // Walking is always a number
 
             // Find vertices by their codes
-            Vertex* v1 = nullptr;
+            Vertex* v1 = n;
             Vertex* v2 = nullptr;
 
             for (Vertex* v : vertexSet) {
