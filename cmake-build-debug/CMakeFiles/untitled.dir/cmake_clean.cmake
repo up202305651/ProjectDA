@@ -1,15 +1,11 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/untitled.dir/batch.cpp.obj"
-  "CMakeFiles/untitled.dir/batch.cpp.obj.d"
-  "CMakeFiles/untitled.dir/dijkstra.cpp.obj"
-  "CMakeFiles/untitled.dir/dijkstra.cpp.obj.d"
-  "CMakeFiles/untitled.dir/graph.cpp.obj"
-  "CMakeFiles/untitled.dir/graph.cpp.obj.d"
-  "CMakeFiles/untitled.dir/main.cpp.obj"
-  "CMakeFiles/untitled.dir/main.cpp.obj.d"
-  "libuntitled.dll.a"
-  "untitled.exe"
-  "untitled.exe.manifest"
+  "CMakeFiles/untitled.dir/dijkstra.cpp.o"
+  "CMakeFiles/untitled.dir/dijkstra.cpp.o.d"
+  "CMakeFiles/untitled.dir/graph.cpp.o"
+  "CMakeFiles/untitled.dir/graph.cpp.o.d"
+  "CMakeFiles/untitled.dir/main.cpp.o"
+  "CMakeFiles/untitled.dir/main.cpp.o.d"
+  "untitled"
   "untitled.pdb"
 )
 

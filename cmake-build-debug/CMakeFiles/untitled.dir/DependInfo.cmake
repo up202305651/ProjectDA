@@ -8,10 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/batch.cpp" "CMakeFiles/untitled.dir/batch.cpp.obj" "gcc" "CMakeFiles/untitled.dir/batch.cpp.obj.d"
-  "C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/dijkstra.cpp" "CMakeFiles/untitled.dir/dijkstra.cpp.obj" "gcc" "CMakeFiles/untitled.dir/dijkstra.cpp.obj.d"
-  "C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/graph.cpp" "CMakeFiles/untitled.dir/graph.cpp.obj" "gcc" "CMakeFiles/untitled.dir/graph.cpp.obj.d"
-  "C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/main.cpp" "CMakeFiles/untitled.dir/main.cpp.obj" "gcc" "CMakeFiles/untitled.dir/main.cpp.obj.d"
+  "/home/bia/Documents/feup/DA/ProjectDA/dijkstra.cpp" "CMakeFiles/untitled.dir/dijkstra.cpp.o" "gcc" "CMakeFiles/untitled.dir/dijkstra.cpp.o.d"
+  "/home/bia/Documents/feup/DA/ProjectDA/graph.cpp" "CMakeFiles/untitled.dir/graph.cpp.o" "gcc" "CMakeFiles/untitled.dir/graph.cpp.o.d"
+  "/home/bia/Documents/feup/DA/ProjectDA/main.cpp" "CMakeFiles/untitled.dir/main.cpp.o" "gcc" "CMakeFiles/untitled.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

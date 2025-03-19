@@ -2,6 +2,7 @@
 #define GRAPH_H
 
 #include <iostream>
+#include <set>
 #include <vector>
 #include <string>
 using namespace std;
@@ -92,5 +93,7 @@ private:
     vector<Vertex *> vertexSet;// Maps location codes to their numeric IDs
     int findVertexIdx(int id) const;
 };
+
+void dijkstraRestricted(Graph g, int src, int dest, const set<int>& avoidNodes, const set<pair<int, int>>& avoidSegments, int includeNode);
 
 #endif

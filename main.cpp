@@ -25,8 +25,8 @@ int main() {
 
     string Mode;
     int Source = 0, Destination = 0, MaxWalkTime = 0;
-    vector<int> AvoidNodes;
-    vector<Edge> AvoidSegments;
+    const set<int> AvoidNodes;
+    const set<pair<int, int>> AvoidSegments;
     int IncludeNode = -1;
 
     regex modeRegex("^Mode\\s*:\\s*([a-zA-Z-]+)\\s*$");
@@ -45,6 +45,8 @@ int main() {
         else if {}
 
     }
+
+    dijkstraRestricted(graph, Source, Destination, AvoidNodes, AvoidSegments, IncludeNode);
 }
 
 // TIP See CLion help at <a
