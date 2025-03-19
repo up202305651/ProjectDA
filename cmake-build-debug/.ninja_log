@@ -1,0 +1,19 @@
+# ninja log v6
+2	1722	1740675610479221105	CMakeFiles/untitled.dir/algorithm.cpp.o	9afd158deb7eb02
+2	1647	1742386896160983073	CMakeFiles/untitled.dir/graph.cpp.o	a581d039cefe7a5d
+2	1206	1742386070816368313	CMakeFiles/untitled.dir/main.cpp.o	ea0cbfbd04dd84a2
+1647	1755	1742386897805982557	untitled	8b5a92a336013e9b
+2	31	1742377584883738821	CMakeFiles/untitled.dir/batch.cpp.o	96b73c731b9fce94
+2	72	1742387495210819745	build.ninja	a45cfcbace6a73ea
+2	1075	1742388555189792130	CMakeFiles/untitled.dir/main.cpp.o	ea0cbfbd04dd84a2
+2	1527	1742388555190792128	CMakeFiles/untitled.dir/graph.cpp.o	a581d039cefe7a5d
+3	1559	1742388555190792128	CMakeFiles/untitled.dir/dijkstra.cpp.o	eddf4d6199c043b0
+1559	1667	1742388556746787809	untitled	672a118427c700cf
+2	832	1742388722517399894	CMakeFiles/untitled.dir/main.cpp.o	ea0cbfbd04dd84a2
+832	942	1742388723347398185	untitled	672a118427c700cf
+2	1251	1742389071979067695	CMakeFiles/untitled.dir/graph.cpp.o	a581d039cefe7a5d
+1251	1362	1742389073226692778	untitled	672a118427c700cf
+3	1108	1742389931463129150	CMakeFiles/untitled.dir/main.cpp.o	ea0cbfbd04dd84a2
+4	1568	1742389931464129356	CMakeFiles/untitled.dir/dijkstra.cpp.o	eddf4d6199c043b0
+4	1576	1742389931464129356	CMakeFiles/untitled.dir/graph.cpp.o	a581d039cefe7a5d
+1576	1682	1742389933036453495	untitled	672a118427c700cf
