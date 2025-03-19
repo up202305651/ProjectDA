@@ -75,7 +75,7 @@ private:
 class Graph {
 public:
     ~Graph();
-    void dijkstraShortestPath(int src, int dest);
+    void dijkstraWalking(int source,int destination);
     Vertex *findVertex(int id) const;
     bool addVertex(int id,string code, int parking);
     bool removeVertex(int id);
