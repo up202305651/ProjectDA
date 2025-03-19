@@ -7,4 +7,6 @@ add_executable(untitled main.cpp
         graph.cpp
         graph.h
         dijkstra.cpp
-        dijkstra.h)
+        dijkstra.h
+        batch.cpp
+        input.txt)

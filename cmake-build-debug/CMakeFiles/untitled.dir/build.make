@@ -96,24 +96,10 @@ CMakeFiles/untitled.dir/graph.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/graph.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\graph.cpp -o CMakeFiles\untitled.dir\graph.cpp.s
 
-CMakeFiles/untitled.dir/batch.cpp.obj: CMakeFiles/untitled.dir/flags.make
-CMakeFiles/untitled.dir/batch.cpp.obj: C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/batch.cpp
-CMakeFiles/untitled.dir/batch.cpp.obj: CMakeFiles/untitled.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/untitled.dir/batch.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/untitled.dir/batch.cpp.obj -MF CMakeFiles\untitled.dir\batch.cpp.obj.d -o CMakeFiles\untitled.dir\batch.cpp.obj -c C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\batch.cpp
-
-CMakeFiles/untitled.dir/batch.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/untitled.dir/batch.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\batch.cpp > CMakeFiles\untitled.dir\batch.cpp.i
-
-CMakeFiles/untitled.dir/batch.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/batch.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\batch.cpp -o CMakeFiles\untitled.dir\batch.cpp.s
-
 CMakeFiles/untitled.dir/dijkstra.cpp.obj: CMakeFiles/untitled.dir/flags.make
 CMakeFiles/untitled.dir/dijkstra.cpp.obj: C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/dijkstra.cpp
 CMakeFiles/untitled.dir/dijkstra.cpp.obj: CMakeFiles/untitled.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/untitled.dir/dijkstra.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/untitled.dir/dijkstra.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/untitled.dir/dijkstra.cpp.obj -MF CMakeFiles\untitled.dir\dijkstra.cpp.obj.d -o CMakeFiles\untitled.dir\dijkstra.cpp.obj -c C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\dijkstra.cpp
 
 CMakeFiles/untitled.dir/dijkstra.cpp.i: cmake_force
@@ -124,20 +110,34 @@ CMakeFiles/untitled.dir/dijkstra.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/dijkstra.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\dijkstra.cpp -o CMakeFiles\untitled.dir\dijkstra.cpp.s
 
+CMakeFiles/untitled.dir/batch.cpp.obj: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/batch.cpp.obj: C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/batch.cpp
+CMakeFiles/untitled.dir/batch.cpp.obj: CMakeFiles/untitled.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/untitled.dir/batch.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/untitled.dir/batch.cpp.obj -MF CMakeFiles\untitled.dir\batch.cpp.obj.d -o CMakeFiles\untitled.dir\batch.cpp.obj -c C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\batch.cpp
+
+CMakeFiles/untitled.dir/batch.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/untitled.dir/batch.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\batch.cpp > CMakeFiles\untitled.dir\batch.cpp.i
+
+CMakeFiles/untitled.dir/batch.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/batch.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\batch.cpp -o CMakeFiles\untitled.dir\batch.cpp.s
+
 # Object files for target untitled
 untitled_OBJECTS = \
 "CMakeFiles/untitled.dir/main.cpp.obj" \
 "CMakeFiles/untitled.dir/graph.cpp.obj" \
-"CMakeFiles/untitled.dir/batch.cpp.obj" \
-"CMakeFiles/untitled.dir/dijkstra.cpp.obj"
+"CMakeFiles/untitled.dir/dijkstra.cpp.obj" \
+"CMakeFiles/untitled.dir/batch.cpp.obj"
 
 # External object files for target untitled
 untitled_EXTERNAL_OBJECTS =
 
 untitled.exe: CMakeFiles/untitled.dir/main.cpp.obj
 untitled.exe: CMakeFiles/untitled.dir/graph.cpp.obj
-untitled.exe: CMakeFiles/untitled.dir/batch.cpp.obj
 untitled.exe: CMakeFiles/untitled.dir/dijkstra.cpp.obj
+untitled.exe: CMakeFiles/untitled.dir/batch.cpp.obj
 untitled.exe: CMakeFiles/untitled.dir/build.make
 untitled.exe: CMakeFiles/untitled.dir/linkLibs.rsp
 untitled.exe: CMakeFiles/untitled.dir/objects1.rsp

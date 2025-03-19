@@ -1,28 +1,25 @@
-//
-// Created by Dival on 19/03/2025.
-//
-#include "graph.h"
+#include "batch.h"
 #include <iostream>
 #include <regex>
 #include <vector>
 #include <sstream>
 #include <fstream>
 #include <string>
-#include "batch.h"
 
-bool batch() {
+bool batch(Graph* graph,
+           std::string* Mode,
+           Vertex*& Source,          // Corrigido para referência
+           Vertex*& Destination,     // Corrigido para referência
+           double* MaxWalkTime,
+           std::vector<Vertex*>& AvoidNodes, // Corrigido para referência
+           std::vector<Edge*>& AvoidSegments, // Corrigido para referência
+           Vertex*& IncludeNode) {
     string line;
-    ifstream file("input.txt");
+    ifstream file("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/input.txt");
     if (!file.is_open()) {
         cout << "Unable to open file";
-        return 1;
+        return false;
     }
-
-    string Mode;
-    int Source = 0, Destination = 0, MaxWalkTime = 0;
-    vector<int> AvoidNodes;
-    vector<Edge> AvoidSegments;
-    int IncludeNode = -1;
 
     regex modeRegex("^Mode\\s*:\\s*([a-zA-Z-]+)\\s*$");
     regex sourceRegex("^Source\\s*:\\s*(\\d+)\\s*$");
@@ -30,20 +27,25 @@ bool batch() {
     regex avoidNodesRegex("^AvoidNodes\\s*:\\s*([\\d,\\s]*)\\s*$");
     regex avoidSegmentsRegex("^AvoidSegments\\s*:\\s*((?:\\(\\s*\\d+\\s*,\\s*\\d+\\s*\\)\\s*(?:,\\s*)?)*)\\s*$");
     regex includeNodeRegex("^IncludeNode\\s*:?\\s*(\\d*)\\s*$");
+    regex maxWalkTimeRegex("^MaxWalkTime\\s*:\\s*(\\d+\\.?\\d*)\\s*$");
 
     smatch match;
     while(getline(file, line)) {
         if (regex_match(line, match, modeRegex)) {
-            Mode = match[1];
-            cout << "Mode: " << Mode << endl;
+            *Mode = match[1];
+            cout << "Mode: " << *Mode << endl;
         }
         else if (regex_match(line, match, sourceRegex)) {
-            Source = stoi(match[1]);
-            cout << "Source: " << Source << endl;
+            Source = graph->findVertex(stoi(match[1]));
+            cout << "Source: " << Source->getId() << endl;
+        }
+        else if (regex_match(line, match, maxWalkTimeRegex)) {
+            *MaxWalkTime = stod(match[1]);
+            cout << "MaxWalkTime: " << *MaxWalkTime << endl;
         }
         else if (regex_match(line, match, destinationRegex)) {
-            Destination = stoi(match[1]);
-            cout << "Destination: " << Destination << endl;
+            Destination = graph->findVertex(stoi(match[1]));
+            cout << "Destination: " << Destination->getId() << endl;
         }
         else if (regex_match(line, match, avoidNodesRegex)) {
             string nodesStr = match[1];
@@ -56,12 +58,12 @@ bool batch() {
                     token.erase(0, token.find_first_not_of(" \t"));
                     token.erase(token.find_last_not_of(" \t") + 1);
                     if (!token.empty())
-                        AvoidNodes.push_back(stoi(token));
+                        AvoidNodes.push_back(graph->findVertex(stoi(token)));
                 }
             }
             cout << "AvoidNodes:";
-            for (int n : AvoidNodes)
-                cout << " " << n;
+            for (Vertex* n : AvoidNodes)
+                cout << " " << n->getId();
             cout << endl;
         }
         else if (regex_match(line, match, avoidSegmentsRegex)) {
@@ -71,23 +73,31 @@ bool batch() {
             auto segBegin = sregex_iterator(segStr.begin(), segStr.end(), segPairRegex);
             auto segEnd = sregex_iterator();
             for (auto it = segBegin; it != segEnd; ++it) {
-                int first = stoi((*it)[1]);
-                int second = stoi((*it)[2]);
-                AvoidSegments.push_back({first, second});
+                Vertex* temp_source =  graph->findVertex(stoi((*it)[1]));
+                Vertex* temp_target = graph->findVertex(stoi((*it)[2]));
+                Edge* existingEdge = nullptr;
+                for (Edge* edge : temp_source->getAdj()) {
+                    if (edge->getDest() == temp_target) { // Se o destino da aresta for o temp_target
+                       existingEdge = edge;
+                       break;
+                    }
+                }
+                AvoidSegments.push_back(existingEdge);
             }
             cout << "AvoidSegments:";
-            for (const auto& seg : AvoidSegments)
-                cout << " (" << seg.first << "," << seg.second << ")";
+            for (Edge* seg : AvoidSegments)
+                cout << " (" << seg->getOrig() << "," << seg->getDest() << ")";
             cout << endl;
         }
         else if (regex_match(line, match, includeNodeRegex)) {
             string inc = match[1];
             if (!inc.empty())
-                IncludeNode = stoi(inc);
-            cout << "IncludeNode: " << (IncludeNode == -1 ? "não definido" : to_string(IncludeNode)) << endl;
+                IncludeNode = graph->findVertex(stoi(inc));
+            cout << "IncludeNode: " << IncludeNode->getId() << endl;
         }
         else {
             cout << "Linha não reconhecida: " << line << endl;
         }
     }
+    return true;
 }
