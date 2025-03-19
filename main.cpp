@@ -11,16 +11,12 @@ int main() {
     // Print the loaded graph to verify data
     graph.printGraph();
 
+    string Mode;
+    int Source, Destination, MaxWalkTime;
+    vector<int> AvoidNodes;
+    vector<Edge> AvoidSegments;
 
-    int source, destination;
-    cout << "Enter source node ID: ";
-    cin >> source;
-    cout << "Enter destination node ID: ";
-    cin >> destination;
-    // Run Dijkstra's algorithm
-    cout << "\nCalculating shortest path..." << endl;
-    graph.dijkstraShortestPath(source, destination);
-    return 0;
+    ifstream file("input.txt");
 }
 
 // TIP See CLion help at <a
