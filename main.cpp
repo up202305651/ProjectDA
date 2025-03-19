@@ -1,12 +1,13 @@
 #include "graph.h"
 #include <iostream>
+#include "dijkstra.h"
 
 int main() {
     Graph graph;
 
     // Load data from CSV files
-    graph.loadLocations("/home/tomas/CLionProjects/untitled/Locations.csv");
-    graph.loadDistances("/home/tomas/CLionProjects/untitled/Distances.csv");
+    graph.loadLocations("/home/tomas/CLionProjects/untitled/Locations(1).csv");
+    graph.loadDistances("/home/tomas/CLionProjects/untitled/Distances(1).csv");
 
     // Print the loaded graph to verify data
     graph.printGraph();
@@ -20,7 +21,8 @@ int main() {
 
     // Run Dijkstra's algorithm
     cout << "\nCalculating shortest path..." << endl;
-    graph.dijkstraWalking(source, destination);
+    /*graph.dijkstraWalking(source, destination);*/
+    dijkstraDriving( &graph, source, destination);
 
     return 0;
 }

@@ -1,4 +1,6 @@
 #include "graph.h"
+
+#include <climits>
 #include <fstream>
 #include <limits>
 #include <sstream>
@@ -157,7 +159,12 @@ bool Graph::addEdge(int src, int dest, double driving, double walking) {
     Vertex *v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
+
+    // Add edge from src to dest
     v1->addEdge(v2, driving, walking);
+    // Add reverse edge from dest to src
+    v2->addEdge(v1, driving, walking);
+
     return true;
 }
 
@@ -221,7 +228,7 @@ void Graph::loadDistances(const string& filename) {
         if (getline(ss, code1, ',') && getline(ss, code2, ',') && getline(ss, drivingStr, ',') && getline(ss, walkingStr, ',')) {
             // Convert "X" to a very large number (or just skip adding the edge for driving)
             if (drivingStr == "X") {
-                driving = numeric_limits<double>::infinity(); // No driving access
+                driving = INT_MAX; // No driving access
             } else {
                 driving = stod(drivingStr);
             }
@@ -241,7 +248,9 @@ void Graph::loadDistances(const string& filename) {
                 cout << "Adding Edge: " << code1 << " -> " << code2
                      << " (Driving: " << (driving == numeric_limits<double>::infinity() ? "N/A" : to_string(driving))
                      << ", Walking: " << walking << ")" << endl;
-                v1->addEdge(v2, driving, walking);
+                if (v1 && v2) {
+                    addEdge(v1->getId(), v2->getId(), driving, walking); // ✅ Use Graph::addEdge
+                }
             } else {
                 cerr << "Warning: Unknown location code(s) - " << code1 << ", " << code2 << endl;
             }

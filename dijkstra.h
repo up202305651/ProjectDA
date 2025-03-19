@@ -8,7 +8,8 @@
 
 
 class dijkstra {
-
+    void dijkstraDriving(Graph *g, const int &origin, const int &destination) const;
+    bool relax(Edge *edge);
 };
 
 

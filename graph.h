@@ -92,5 +92,6 @@ private:
     vector<Vertex *> vertexSet;// Maps location codes to their numeric IDs
     int findVertexIdx(int id) const;
 };
+void dijkstraDriving(Graph *g, const int &origin, const int &destination);
 
 #endif
