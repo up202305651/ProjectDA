@@ -2,4 +2,4 @@ Mode:driving
 Source:5
 Destination:4
 AvoidNodes:2
-AvoidSegments:(4,7)
+AvoidSegments:(1,1045)

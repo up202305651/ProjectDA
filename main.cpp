@@ -16,16 +16,25 @@ int main() {
     // Print the loaded graph to verify data
     graph.printGraph();
 
-    //preparar para a leitura
-    std::string Mode; // Objeto, não ponteiro
-    Vertex* Source = nullptr;
-    Vertex* Destination = nullptr;
-    double MaxWalkTime = 0.0; // Inicializado
-    std::vector<Vertex*> AvoidNodes;
-    std::vector<Edge*> AvoidSegments;
-    Vertex* IncludeNode = nullptr;
+    Batch batch = new Batch();
+    batch.setGraph(graph);
+    batch.loadFromFile("input.txt");
 
-    batch(&graph, &Mode, Source, Destination, &MaxWalkTime, AvoidNodes, AvoidSegments, IncludeNode);
+    int Source_output, Destination_output;
+    vector<int> DrivingRoute1;
+    int TimeDrivingRoute1;
+    int ParkingNode1;
+    vector<int> WalkingRoute1;
+    int TimeWalkingRoute1;
+    int TotalTime1;
+    vector<int> DrivingRoute2;
+    int TimeDrivingRoute2;
+    int ParkingNode2;
+    vector<int> WalkingRoute2;
+    int TimeWalkingRoute2;
+    int TotalTime2;
+
+
 
 
 
