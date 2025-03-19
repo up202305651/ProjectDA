@@ -20,7 +20,7 @@ int main() {
 
     // Run Dijkstra's algorithm
     cout << "\nCalculating shortest path..." << endl;
-    graph.dijkstraShortestPath(source, destination);
+    graph.dijkstraWalking(source, destination);
 
     return 0;
 }
