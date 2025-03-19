@@ -65,16 +65,16 @@ bool relax(Edge *edge) { // d[u] + w(u,v) < d[v]
 
 void dijkstraDriving(Graph *g, const int &origin, const int &destination) {
     Vertex *origem = g->findVertex(origin);
-    if (!origem) {
-        cout << "Source vertex not found!" << endl;
+    Vertex *dest = g->findVertex(destination);
+    if (!origem || !dest) {
+        cout << "Source or destination vertex not found!" << endl;
         return;
     }
 
-    int maxi = INT_MAX;
     for (Vertex *v : g->getVertexSet()) {
         v->setVisited(false);
         v->setPath(nullptr);
-        v->setDist(maxi);
+        v->setDist(INT_MAX);
     }
     origem->setDist(0);
 
@@ -85,19 +85,153 @@ void dijkstraDriving(Graph *g, const int &origin, const int &destination) {
 
     while (!queue.empty()) {
         Vertex *min = queue.extractMin();
-
         for (Edge *edge : min->getAdj()) {
-            Vertex *destino = edge->getDest();
             if (relax(edge)) {
-                queue.decreaseKey(destino);
+                queue.decreaseKey(edge->getDest());
             }
         }
     }
 
-    if (g->findVertex(destination)->getDist() == INT_MAX) {
+    // Print the shortest path
+    if (dest->getDist() == INT_MAX) {
         cout << "No path found from " << origin << " to " << destination << " by driving." << endl;
+        return;
+    }
+
+    cout << "Shortest driving time: " << dest->getDist() << " minutes." << endl;
+    cout << "Path: ";
+
+    vector<Edge *> shortestPathEdges;
+    vector<int> path;
+    Vertex *current = dest;
+
+    while (current != nullptr) {
+        path.push_back(current->getId());
+        if (current->getPath() != nullptr) {
+            shortestPathEdges.push_back(current->getPath());  // Store edges in shortest path
+            current = current->getPath()->getOrig();
+        } else {
+            break;
+        }
+    }
+
+    // Print the path in correct order
+    for (int i = path.size() - 1; i >= 0; i--) {
+        cout << path[i];
+        if (i > 0) cout << " -> ";
+    }
+    cout << endl;
+
+    // ========= FINDING ALTERNATIVE ROUTE =========
+    double bestAlternative = INT_MAX;
+    vector<int> bestAlternativePath;
+
+    for (Edge *edge : shortestPathEdges) {
+        Vertex *src = edge->getOrig();
+        Vertex *dest = edge->getDest();
+        double originalWeight = edge->getWeightDriving();
+
+        // Remove the edge temporarily
+        src->removeEdge(dest->getId());
+
+        // Run Dijkstra again
+        for (Vertex *v : g->getVertexSet()) {
+            v->setVisited(false);
+            v->setPath(nullptr);
+            v->setDist(INT_MAX);
+        }
+        origem->setDist(0);
+
+        MutablePriorityQueue<Vertex> queue;
+        for (Vertex *v : g->getVertexSet()) {
+            queue.insert(v);
+        }
+
+        while (!queue.empty()) {
+            Vertex *min = queue.extractMin();
+            for (Edge *edge : min->getAdj()) {
+                if (relax(edge)) {
+                    queue.decreaseKey(edge->getDest());
+                }
+            }
+        }
+
+        if (dest->getDist() != INT_MAX && dest->getDist() > shortestPathEdges.front()->getWeightDriving() && dest->getDist() < bestAlternative && dest->getId()==destination) {
+            bestAlternative = dest->getDist();
+
+            bestAlternativePath.clear();
+            Vertex *altCurrent = dest;
+            while (altCurrent != nullptr) {
+                bestAlternativePath.push_back(altCurrent->getId());
+                if (altCurrent->getPath() != nullptr) {
+                    altCurrent = altCurrent->getPath()->getOrig();
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Restore the edge
+        src->addEdge(dest, originalWeight, edge->getWeightWalking());
+    }
+
+    // Print the best alternative path
+    if (bestAlternative == INT_MAX) {
+        cout << "No alternative route found." << endl;
     } else {
-        cout << "Shortest driving time from " << origin << " to " << destination << " is: "
-             << g->findVertex(destination)->getDist() << " minutes." << endl;
+        cout << "Best alternative driving time: " << bestAlternative << " minutes." << endl;
+        cout << "Alternative Path: ";
+        for (int i = bestAlternativePath.size() - 1; i >= 0; i--) {
+            cout << bestAlternativePath[i];
+            if (i > 0) cout << " -> ";
+        }
+        cout << endl;
     }
 }
+/*
+void findAlternativeRoute(Graph *g, const int &origin, const int &destination) {
+    double shortestPath = dijkstraDriving(g, origin, destination);
+    if (shortestPath == INT_MAX) {
+        cout << "No path found from " << origin << " to " << destination << " by driving." << endl;
+        return;
+    }
+
+    cout << "Shortest driving time: " << shortestPath << " minutes." << endl;
+
+    // Step 1: Store the shortest path edges
+    vector<Edge *> shortestPathEdges;
+    Vertex *current = g->findVertex(destination);
+
+    while (current->getPath() != nullptr) {
+        shortestPathEdges.push_back(current->getPath());
+        current = current->getPath()->getOrig();
+    }
+
+    double bestAlternative = INT_MAX;
+    Edge *removedEdge = nullptr;
+
+    // Step 2: Remove each edge temporarily and find an alternative route
+    for (Edge *edge : shortestPathEdges) {
+        Vertex *src = edge->getOrig();
+        Vertex *dest = edge->getDest();
+        double originalWeight = edge->getWeightDriving();
+
+        src->removeEdge(dest->getId());  // Temporarily remove the edge
+
+        double alternativePath = dijkstraDriving(g, origin, destination);
+
+        if (alternativePath < bestAlternative && alternativePath > shortestPath) {
+            bestAlternative = alternativePath;
+            removedEdge = edge; // Store the removed edge that led to the best alternative
+        }
+
+        src->addEdge(dest, originalWeight, edge->getWeightWalking()); // Restore edge
+    }
+
+    if (bestAlternative == INT_MAX) {
+        cout << "No alternative route found." << endl;
+    } else {
+        cout << "Best alternative route time: " << bestAlternative << " minutes." << endl;
+    }
+}
+*/
