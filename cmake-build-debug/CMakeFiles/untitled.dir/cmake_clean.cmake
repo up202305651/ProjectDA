@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/untitled.dir/batch.cpp.o"
+  "CMakeFiles/untitled.dir/batch.cpp.o.d"
+  "CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o"
+  "CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o.d"
   "CMakeFiles/untitled.dir/dijkstra.cpp.o"
   "CMakeFiles/untitled.dir/dijkstra.cpp.o.d"
   "CMakeFiles/untitled.dir/graph.cpp.o"

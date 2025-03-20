@@ -97,10 +97,24 @@ CMakeFiles/untitled.dir/graph.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/graph.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bia/Documents/feup/DA/ProjectDA/graph.cpp -o CMakeFiles/untitled.dir/graph.cpp.s
 
+CMakeFiles/untitled.dir/batch.cpp.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/batch.cpp.o: /home/bia/Documents/feup/DA/ProjectDA/batch.cpp
+CMakeFiles/untitled.dir/batch.cpp.o: CMakeFiles/untitled.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bia/Documents/feup/DA/ProjectDA/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/untitled.dir/batch.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/untitled.dir/batch.cpp.o -MF CMakeFiles/untitled.dir/batch.cpp.o.d -o CMakeFiles/untitled.dir/batch.cpp.o -c /home/bia/Documents/feup/DA/ProjectDA/batch.cpp
+
+CMakeFiles/untitled.dir/batch.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/untitled.dir/batch.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bia/Documents/feup/DA/ProjectDA/batch.cpp > CMakeFiles/untitled.dir/batch.cpp.i
+
+CMakeFiles/untitled.dir/batch.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/batch.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bia/Documents/feup/DA/ProjectDA/batch.cpp -o CMakeFiles/untitled.dir/batch.cpp.s
+
 CMakeFiles/untitled.dir/dijkstra.cpp.o: CMakeFiles/untitled.dir/flags.make
 CMakeFiles/untitled.dir/dijkstra.cpp.o: /home/bia/Documents/feup/DA/ProjectDA/dijkstra.cpp
 CMakeFiles/untitled.dir/dijkstra.cpp.o: CMakeFiles/untitled.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bia/Documents/feup/DA/ProjectDA/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/untitled.dir/dijkstra.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bia/Documents/feup/DA/ProjectDA/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/untitled.dir/dijkstra.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/untitled.dir/dijkstra.cpp.o -MF CMakeFiles/untitled.dir/dijkstra.cpp.o.d -o CMakeFiles/untitled.dir/dijkstra.cpp.o -c /home/bia/Documents/feup/DA/ProjectDA/dijkstra.cpp
 
 CMakeFiles/untitled.dir/dijkstra.cpp.i: cmake_force
@@ -111,21 +125,39 @@ CMakeFiles/untitled.dir/dijkstra.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/dijkstra.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bia/Documents/feup/DA/ProjectDA/dijkstra.cpp -o CMakeFiles/untitled.dir/dijkstra.cpp.s
 
+CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o: /home/bia/Documents/feup/DA/ProjectDA/dijkstra-restricted.cpp
+CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o: CMakeFiles/untitled.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bia/Documents/feup/DA/ProjectDA/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o -MF CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o.d -o CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o -c /home/bia/Documents/feup/DA/ProjectDA/dijkstra-restricted.cpp
+
+CMakeFiles/untitled.dir/dijkstra-restricted.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/untitled.dir/dijkstra-restricted.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bia/Documents/feup/DA/ProjectDA/dijkstra-restricted.cpp > CMakeFiles/untitled.dir/dijkstra-restricted.cpp.i
+
+CMakeFiles/untitled.dir/dijkstra-restricted.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/dijkstra-restricted.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bia/Documents/feup/DA/ProjectDA/dijkstra-restricted.cpp -o CMakeFiles/untitled.dir/dijkstra-restricted.cpp.s
+
 # Object files for target untitled
 untitled_OBJECTS = \
 "CMakeFiles/untitled.dir/main.cpp.o" \
 "CMakeFiles/untitled.dir/graph.cpp.o" \
-"CMakeFiles/untitled.dir/dijkstra.cpp.o"
+"CMakeFiles/untitled.dir/batch.cpp.o" \
+"CMakeFiles/untitled.dir/dijkstra.cpp.o" \
+"CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o"
 
 # External object files for target untitled
 untitled_EXTERNAL_OBJECTS =
 
 untitled: CMakeFiles/untitled.dir/main.cpp.o
 untitled: CMakeFiles/untitled.dir/graph.cpp.o
+untitled: CMakeFiles/untitled.dir/batch.cpp.o
 untitled: CMakeFiles/untitled.dir/dijkstra.cpp.o
+untitled: CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o
 untitled: CMakeFiles/untitled.dir/build.make
 untitled: CMakeFiles/untitled.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bia/Documents/feup/DA/ProjectDA/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable untitled"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bia/Documents/feup/DA/ProjectDA/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable untitled"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/untitled.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

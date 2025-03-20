@@ -129,6 +129,54 @@ untitled/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
+batch.o: batch.cpp.o
+.PHONY : batch.o
+
+# target to build an object file
+batch.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/batch.cpp.o
+.PHONY : batch.cpp.o
+
+batch.i: batch.cpp.i
+.PHONY : batch.i
+
+# target to preprocess a source file
+batch.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/batch.cpp.i
+.PHONY : batch.cpp.i
+
+batch.s: batch.cpp.s
+.PHONY : batch.s
+
+# target to generate assembly for a file
+batch.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/batch.cpp.s
+.PHONY : batch.cpp.s
+
+dijkstra-restricted.o: dijkstra-restricted.cpp.o
+.PHONY : dijkstra-restricted.o
+
+# target to build an object file
+dijkstra-restricted.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o
+.PHONY : dijkstra-restricted.cpp.o
+
+dijkstra-restricted.i: dijkstra-restricted.cpp.i
+.PHONY : dijkstra-restricted.i
+
+# target to preprocess a source file
+dijkstra-restricted.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-restricted.cpp.i
+.PHONY : dijkstra-restricted.cpp.i
+
+dijkstra-restricted.s: dijkstra-restricted.cpp.s
+.PHONY : dijkstra-restricted.s
+
+# target to generate assembly for a file
+dijkstra-restricted.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-restricted.cpp.s
+.PHONY : dijkstra-restricted.cpp.s
+
 dijkstra.o: dijkstra.cpp.o
 .PHONY : dijkstra.o
 
@@ -210,6 +258,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... untitled"
+	@echo "... batch.o"
+	@echo "... batch.i"
+	@echo "... batch.s"
+	@echo "... dijkstra-restricted.o"
+	@echo "... dijkstra-restricted.i"
+	@echo "... dijkstra-restricted.s"
 	@echo "... dijkstra.o"
 	@echo "... dijkstra.i"
 	@echo "... dijkstra.s"

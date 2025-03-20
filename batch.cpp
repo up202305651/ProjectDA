@@ -2,6 +2,7 @@
 // Created by Dival on 19/03/2025.
 //
 #include "graph.h"
+#include "dijkstra-restricted.h"
 #include <iostream>
 #include <regex>
 #include <vector>
@@ -73,11 +74,11 @@ bool batch() {
             for (auto it = segBegin; it != segEnd; ++it) {
                 int first = stoi((*it)[1]);
                 int second = stoi((*it)[2]);
-                AvoidSegments.push_back({first, second});
+                AvoidSegments.push_back(Edge(0, 0, first, second));
             }
             cout << "AvoidSegments:";
             for (const auto& seg : AvoidSegments)
-                cout << " (" << seg.first << "," << seg.second << ")";
+                cout << " (" << seg.getOrig() << "," << seg.getDest() << ")";
             cout << endl;
         }
         else if (regex_match(line, match, includeNodeRegex)) {
@@ -90,4 +91,5 @@ bool batch() {
             cout << "Linha não reconhecida: " << line << endl;
         }
     }
+    return true;
 }

@@ -94,6 +94,9 @@ private:
     int findVertexIdx(int id) const;
 };
 
-void dijkstraRestricted(Graph g, int src, int dest, const set<int>& avoidNodes, const set<pair<int, int>>& avoidSegments, int includeNode);
+void dijkstraDriving(Graph *g, const int &origin, const int &destination);
+void dijkstraRestricted(Graph* g, const int& src, const int& dest,
+    const vector<int>& avoidNodes, const vector<pair<int, int>>& avoidSegments,
+    const int& includeNode);
 
 #endif

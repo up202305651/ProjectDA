@@ -1,55 +1,44 @@
 #include "graph.h"
 #include <iostream>
-#include <regex>
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <string>
-using namespace std;
+#include "dijkstra.h"
+
 int main() {
     Graph graph;
 
     // Load data from CSV files
-    graph.loadLocations("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/Locations.csv");
-    graph.loadDistances("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/Distances.csv");
+    graph.loadLocations("/home/bia/Documents/feup/DA/ProjectDA/Locations.csv");
+    graph.loadDistances("/home/bia/Documents/feup/DA/ProjectDA/Distances.csv");
 
     // Print the loaded graph to verify data
     graph.printGraph();
 
-    string line;
-    ifstream file("input.txt");
-    if (!file.is_open()) {
-        cout << "Unable to open file";
-        return 1;
+
+    int source, destination;
+    vector<int> avoidNodes;
+    vector<pair<int, int>> avoidSegments;
+    int includeNode;
+    cout << "Enter source node ID: ";
+    cin >> source;
+    cout << "Enter destination node ID: ";
+    cin >> destination;
+    cout << "Enter avoid nodes (0 to stop): ";
+    int avoidNode;
+    while (cin >> avoidNode && avoidNode != 0) {
+        avoidNodes.push_back(avoidNode);
     }
-
-    string Mode;
-    int Source = 0, Destination = 0, MaxWalkTime = 0;
-    const set<int> AvoidNodes;
-    const set<pair<int, int>> AvoidSegments;
-    int IncludeNode = -1;
-
-    regex modeRegex("^Mode\\s*:\\s*([a-zA-Z-]+)\\s*$");
-    regex sourceRegex("^Source\\s*:\\s*(\\d+)\\s*$");
-    regex destinationRegex("^Destination\\s*:\\s*(\\d+)\\s*$");
-    regex avoidNodesRegex("^AvoidNodes\\s*:\\s*([\\d,\\s]*)\\s*$");
-    regex avoidSegmentsRegex("^AvoidSegments\\s*:\\s*((?:\\(\\s*\\d+\\s*,\\s*\\d+\\s*\\)\\s*(?:,\\s*)?)*)\\s*$");
-    regex includeNodeRegex("^IncludeNode\\s*:?\\s*(\\d*)\\s*$");
-
-    smatch match;
-    while (getline(file, line)) {
-        if (regex_match(line,match, modeRegex)) {
-            Mode = match[1];
-            cout << "Mode: " << Mode << endl;
-        }
-        else if {}
-
+    cout << "Enter avoid segments (0 0 to stop): ";
+    int src, dest;
+    while (cin >> src >> dest && src != 0 && dest != 0) {
+        avoidSegments.emplace_back(src, dest);
     }
+    cout << "Enter include node ID: ";
+    cin >> includeNode;
 
-    dijkstraRestricted(graph, Source, Destination, AvoidNodes, AvoidSegments, IncludeNode);
+    // Run Dijkstra's algorithm
+    cout << "\nCalculating shortest path..." << endl;
+    /*graph.dijkstraWalking(source, destination);*/
+    dijkstraDriving( &graph, source, destination);
+    dijkstraRestricted(&graph, source, destination, {1, 2, 3}, {{1, 2}, {2, 3}}, 4);
+
+    return 0;
 }
-
-// TIP See CLion help at <a
-// href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
-//  Also, you can try interactive lessons for CLion by selecting
-//  'Help | Learn IDE Features' from the main menu.

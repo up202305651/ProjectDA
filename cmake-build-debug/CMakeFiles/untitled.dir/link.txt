@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/graph.cpp.o CMakeFiles/untitled.dir/dijkstra.cpp.o -o untitled
+/usr/bin/c++ -g CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/graph.cpp.o CMakeFiles/untitled.dir/batch.cpp.o CMakeFiles/untitled.dir/dijkstra.cpp.o "CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o" -o untitled
