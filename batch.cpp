@@ -6,9 +6,8 @@
 #include <fstream>
 #include <string>
 
-void Batch::setGraph(Graph *graph) {
-    graph_ = graph;
-}
+
+
 bool Batch::loadFromFile(const std::string& filename) {
     std::ifstream file;
     file.open(filename);
@@ -23,7 +22,11 @@ bool Batch::loadFromFile(const std::string& filename) {
     return true;
 
 }
-
+void Batch::setOutputFile(string strinG) {
+    std::ofstream *file(strinG);
+    file_ = file;
+}
+std::ifstream Batch::getFile() {return file_;};
 std::string Batch::getMode() const { return mode_; }
 Vertex* Batch::getSource() const { return source_; }
 Vertex* Batch::getDestination() const { return destination_; }
@@ -43,81 +46,77 @@ void Batch::processLine(const std::string& line) {
     regex maxWalkTimeRegex("^MaxWalkTime\\s*:\\s*(\\d+\\.?\\d*)\\s*$");
 
     smatch match;
-    while(getline(file, line)) {
-        if (regex_match(line, match, modeRegex)) {
-            mode_ = match[1];
-            cout << "Mode: " << *mode_ << endl;
-        }
-        else if (regex_match(line, match, sourceRegex)) {
-            source_ = graph_->findVertex(stoi(match[1]));
-            cout << "Source: " << source_->getId() << endl;
-        }
-        else if (regex_match(line, match, maxWalkTimeRegex)) {
-            maxWalkTime_ = stod(match[1]);
-            cout << "MaxWalkTime: " << maxWalkTime_ << endl;
-        }
-        else if (regex_match(line, match, destinationRegex)) {
-            destination_ = graph_->findVertex(stoi(match[1]));
-            cout << "Destination: " << destination_->getId() << endl;
-        }
-        else if (regex_match(line, match, avoidNodesRegex)) {
-            string nodesStr = match[1];
-            // Se a string não estiver vazia, separar por vírgula:
-            if (!nodesStr.empty()) {
-                stringstream ss(nodesStr);
-                string token;
-                while(getline(ss, token, ',')) {
-                    // Remover espaços:
-                    token.erase(0, token.find_first_not_of(" \t"));
-                    token.erase(token.find_last_not_of(" \t") + 1);
-                    if (!token.empty())
-                        avoidNodes_.push_back(graph_->findVertex(stoi(token)));
-                }
-            }
-            cout << "AvoidNodes:";
-            for (Vertex* n : avoidNodes_)
-                cout << " " << n->getId();
-            cout << endl;
-        }
-        else if (regex_match(line, match, avoidSegmentsRegex)) {
-            string segStr = match[1];
-            // Usar outra regex para extrair cada par dentro dos parênteses:
-            regex segPairRegex(R"(\(\s*(\d+)\s*,\s*(\d+)\s*\))");
-            auto segBegin = sregex_iterator(segStr.begin(), segStr.end(), segPairRegex);
-            auto segEnd = sregex_iterator();
-            for (auto it = segBegin; it != segEnd; ++it) {
-                Vertex* temp_source =  graph_->findVertex(stoi((*it)[1]));
-                Vertex* temp_target = graph_->findVertex(stoi((*it)[2]));
-                Edge* existingEdge;
-                for (Edge* edge : temp_source->getAdj()) {
-                    if (edge->getDest() == temp_target) { // Se o destino da aresta for o temp_target
-                       existingEdge = edge;
-                       break;
-                    }
-                }
-                avoidSegments_.push_back(existingEdge);
-
-            }
-            cout << "AvoidSegments:";
-            cout << " (";
-            for (Edge* seg : avoidSegments_) {
-                cout << seg->getOrig()->getId() << "," << seg->getDest()->getId() << " , ";
-            }
-            cout << ")";
-            cout << endl;
-        }
-        else if (regex_match(line, match, includeNodeRegex)) {
-            string inc = match[1];
-            if (!inc.empty())
-                includeNode_ = graph_->findVertex(stoi(inc));
-            cout << "IncludeNode: " << includeNode_->getId() << endl;
-        }
-        else {
-            cout << "Linha não reconhecida: " << line << endl;
-        }
+    if (regex_match(line, match, modeRegex)) {
+        mode_ = match[1];
+        cout << "Mode: " << mode_ << endl;
     }
-    file.close();
-    return true;
+    else if (regex_match(line, match, sourceRegex)) {
+        source_ = graph_->findVertex(stoi(match[1]));
+        cout << "Source: " << source_->getId() << endl;
+    }
+    else if (regex_match(line, match, maxWalkTimeRegex)) {
+        maxWalkTime_ = stod(match[1]);
+        cout << "MaxWalkTime: " << maxWalkTime_ << endl;
+    }
+    else if (regex_match(line, match, destinationRegex)) {
+        destination_ = graph_->findVertex(stoi(match[1]));
+        cout << "Destination: " << destination_->getId() << endl;
+    }
+    else if (regex_match(line, match, avoidNodesRegex)) {
+        string nodesStr = match[1];
+        // Se a string não estiver vazia, separar por vírgula:
+        if (!nodesStr.empty()) {
+            stringstream ss(nodesStr);
+            string token;
+            while(getline(ss, token, ',')) {
+                // Remover espaços:
+                token.erase(0, token.find_first_not_of(" \t"));
+                token.erase(token.find_last_not_of(" \t") + 1);
+                if (!token.empty())
+                    avoidNodes_.push_back(graph_->findVertex(stoi(token)));
+            }
+        }
+        cout << "AvoidNodes:";
+        for (Vertex* n : avoidNodes_)
+            cout << " " << n->getId();
+        cout << endl;
+    }
+    else if (regex_match(line, match, avoidSegmentsRegex)) {
+        string segStr = match[1];
+        // Usar outra regex para extrair cada par dentro dos parênteses:
+        regex segPairRegex(R"(\(\s*(\d+)\s*,\s*(\d+)\s*\))");
+        auto segBegin = sregex_iterator(segStr.begin(), segStr.end(), segPairRegex);
+        auto segEnd = sregex_iterator();
+        for (auto it = segBegin; it != segEnd; ++it) {
+            Vertex* temp_source =  graph_->findVertex(stoi((*it)[1]));
+            Vertex* temp_target = graph_->findVertex(stoi((*it)[2]));
+            Edge* existingEdge;
+            for (Edge* edge : temp_source->getAdj()) {
+                if (edge->getDest() == temp_target) { // Se o destino da aresta for o temp_target
+                   existingEdge = edge;
+                   break;
+                }
+            }
+            avoidSegments_.push_back(existingEdge);
+
+        }
+        cout << "AvoidSegments:";
+        cout << " (";
+        for (Edge* seg : avoidSegments_) {
+            cout << seg->getOrig()->getId() << "," << seg->getDest()->getId() << " , ";
+        }
+        cout << ")";
+        cout << endl;
+    }
+    else if (regex_match(line, match, includeNodeRegex)) {
+        string inc = match[1];
+        if (!inc.empty())
+            includeNode_ = graph_->findVertex(stoi(inc));
+        cout << "IncludeNode: " << includeNode_->getId() << endl;
+    }
+    else {
+        cout << "Linha não reconhecida: " << line << endl;
+    }
 }
 
 void Write(ofstream& file, string label,int number){
@@ -144,27 +143,3 @@ void WriteWithExtra(ofstream& file, string label, vector<int> numbers, int extra
     }
     file << "("<< extra << ")" << endl;
 }
-
-bool batch_out(string Mode, int Source_output, int Destination_output,
-    vector<int> DrivingRoute1, int TimeDrivingRoute1, int ParkingNode1,
-    vector<int> WalkingRoute1, int TimeWalkingRoute1, int TotalTime1,
-    vector<int> DrivingRoute2, int TimeDrivingRoute2, int ParkingNode2,
-    vector<int> WalkingRoute2, int TimeWalkingRoute2, int TotalTime2,
-    vector<int> AvoidNodes, vector<int> AvoidSegments) {
-    ofstream file("output.txt");
-    if (!file.is_open()) {
-        cout << "Error opening output file." << endl;
-        return false;
-    }
-
-    Write(file, "Source" , Source_output);
-    Write(file, "Destination" , Destination_output);
-    if (DrivingRoute1.empty && DrivingRoute2.empty()
-        && WalkingRoute1.empty() && WalkingRoute2.empty()
-        && {}
-    string prefixo = "";
-    if (!AvoidNodes.empty() || !AvoidSegments.empty()) {
-        prefixo = "Restricted";
-    }
-    string meio = "";
-    }

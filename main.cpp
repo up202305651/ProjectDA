@@ -16,11 +16,15 @@ int main() {
     // Print the loaded graph to verify data
     graph.printGraph();
 
-    Batch batch = new Batch();
-    batch.setGraph(graph);
-    batch.loadFromFile("input.txt");
+    Batch batch = new Batch(&graph);
+    batch.loadFromFile("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/input.txt");
 
-    int Source_output, Destination_output;
+    batch.setOutputFile("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/output.txt");
+    batch.generateOutput();
+
+
+
+/*    int Source_output, Destination_output;
     vector<int> DrivingRoute1;
     int TimeDrivingRoute1;
     int ParkingNode1;
@@ -33,7 +37,7 @@ int main() {
     vector<int> WalkingRoute2;
     int TimeWalkingRoute2;
     int TotalTime2;
-
+*/
 
 
 
