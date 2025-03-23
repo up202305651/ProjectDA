@@ -11,4 +11,6 @@ add_executable(untitled main.cpp
         dijkstra.cpp
         dijkstra.h
         dijkstra-restricted.cpp
-        dijkstra-restricted.h)
+        dijkstra-restricted.h
+        dijkstra-sustainable.cpp
+        dijkstra-sustainable.h)

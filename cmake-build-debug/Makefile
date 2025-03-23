@@ -177,6 +177,30 @@ dijkstra-restricted.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-restricted.cpp.s
 .PHONY : dijkstra-restricted.cpp.s
 
+dijkstra-sustainable.o: dijkstra-sustainable.cpp.o
+.PHONY : dijkstra-sustainable.o
+
+# target to build an object file
+dijkstra-sustainable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-sustainable.cpp.o
+.PHONY : dijkstra-sustainable.cpp.o
+
+dijkstra-sustainable.i: dijkstra-sustainable.cpp.i
+.PHONY : dijkstra-sustainable.i
+
+# target to preprocess a source file
+dijkstra-sustainable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-sustainable.cpp.i
+.PHONY : dijkstra-sustainable.cpp.i
+
+dijkstra-sustainable.s: dijkstra-sustainable.cpp.s
+.PHONY : dijkstra-sustainable.s
+
+# target to generate assembly for a file
+dijkstra-sustainable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/dijkstra-sustainable.cpp.s
+.PHONY : dijkstra-sustainable.cpp.s
+
 dijkstra.o: dijkstra.cpp.o
 .PHONY : dijkstra.o
 
@@ -264,6 +288,9 @@ help:
 	@echo "... dijkstra-restricted.o"
 	@echo "... dijkstra-restricted.i"
 	@echo "... dijkstra-restricted.s"
+	@echo "... dijkstra-sustainable.o"
+	@echo "... dijkstra-sustainable.i"
+	@echo "... dijkstra-sustainable.s"
 	@echo "... dijkstra.o"
 	@echo "... dijkstra.i"
 	@echo "... dijkstra.s"

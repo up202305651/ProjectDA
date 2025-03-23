@@ -1,0 +1,13 @@
+Location1,Location2,Driving,Walking
+trin,camp,10,20
+trin,bol,X,15
+camp,bol,5,8
+camp,ali,8,25
+bol,foz,20,25
+bol,se,12,10
+ali,foz,30,50
+foz,rib,X,12
+ali,rib,15,30
+se,rib,X,10
+foz,cle,14,20
+ali,cle,6,18

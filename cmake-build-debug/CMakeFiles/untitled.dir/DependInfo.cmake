@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/bia/Documents/feup/DA/ProjectDA/batch.cpp" "CMakeFiles/untitled.dir/batch.cpp.o" "gcc" "CMakeFiles/untitled.dir/batch.cpp.o.d"
   "/home/bia/Documents/feup/DA/ProjectDA/dijkstra-restricted.cpp" "CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o" "gcc" "CMakeFiles/untitled.dir/dijkstra-restricted.cpp.o.d"
+  "/home/bia/Documents/feup/DA/ProjectDA/dijkstra-sustainable.cpp" "CMakeFiles/untitled.dir/dijkstra-sustainable.cpp.o" "gcc" "CMakeFiles/untitled.dir/dijkstra-sustainable.cpp.o.d"
   "/home/bia/Documents/feup/DA/ProjectDA/dijkstra.cpp" "CMakeFiles/untitled.dir/dijkstra.cpp.o" "gcc" "CMakeFiles/untitled.dir/dijkstra.cpp.o.d"
   "/home/bia/Documents/feup/DA/ProjectDA/graph.cpp" "CMakeFiles/untitled.dir/graph.cpp.o" "gcc" "CMakeFiles/untitled.dir/graph.cpp.o.d"
   "/home/bia/Documents/feup/DA/ProjectDA/main.cpp" "CMakeFiles/untitled.dir/main.cpp.o" "gcc" "CMakeFiles/untitled.dir/main.cpp.o.d"

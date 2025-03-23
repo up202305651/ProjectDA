@@ -6,21 +6,24 @@ int main() {
     Graph graph;
 
     // Load data from CSV files
-    graph.loadLocations("/home/bia/Documents/feup/DA/ProjectDA/Locations.csv");
-    graph.loadDistances("/home/bia/Documents/feup/DA/ProjectDA/Distances.csv");
+    graph.loadLocations("/home/bia/Documents/feup/DA/ProjectDA/Locations(1).csv");
+    graph.loadDistances("/home/bia/Documents/feup/DA/ProjectDA/Distances(1).csv");
 
     // Print the loaded graph to verify data
     graph.printGraph();
 
 
-    int source, destination;
-    vector<int> avoidNodes;
-    vector<pair<int, int>> avoidSegments;
-    int includeNode;
+    int source, destination, maxWalkTime;
     cout << "Enter source node ID: ";
     cin >> source;
     cout << "Enter destination node ID: ";
     cin >> destination;
+    cout << "Enter maximum walking time: ";
+    cin >> maxWalkTime;
+    /*
+    vector<int> avoidNodes;
+    vector<pair<int, int>> avoidSegments;
+    int includeNode;
     cout << "Enter avoid nodes (0 to stop): ";
     int avoidNode;
     while (cin >> avoidNode && avoidNode != 0) {
@@ -33,12 +36,14 @@ int main() {
     }
     cout << "Enter include node ID: ";
     cin >> includeNode;
+    */
 
     // Run Dijkstra's algorithm
     cout << "\nCalculating shortest path..." << endl;
     /*graph.dijkstraWalking(source, destination);*/
     dijkstraDriving( &graph, source, destination);
-    dijkstraRestricted(&graph, source, destination, {1, 2, 3}, {{1, 2}, {2, 3}}, 4);
+    //dijkstraRestricted(&graph, source, destination, {1, 2, 3}, {{1, 2}, {2, 3}}, 4);
+    dijkstraDrivingWalking(&graph, source, destination, maxWalkTime);
 
     return 0;
 }
