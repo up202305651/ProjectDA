@@ -242,6 +242,7 @@ void Graph::loadDistances(const string& filename) {
                      << " (Driving: " << (driving == numeric_limits<double>::infinity() ? "N/A" : to_string(driving))
                      << ", Walking: " << walking << ")" << endl;
                 v1->addEdge(v2, driving, walking);
+                v2->addEdge(v1, driving, walking);
             } else {
                 cerr << "Warning: Unknown location code(s) - " << code1 << ", " << code2 << endl;
             }

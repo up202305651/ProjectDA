@@ -6,8 +6,8 @@ int main() {
     Graph graph;
 
     // Load data from CSV files
-    graph.loadLocations("/home/bia/Documents/feup/DA/ProjectDA/Locations.csv");
-    graph.loadDistances("/home/bia/Documents/feup/DA/ProjectDA/Distances.csv");
+    graph.loadLocations("/home/bia/Documents/feup/DA/ProjectDA/Locations(1).csv");
+    graph.loadDistances("/home/bia/Documents/feup/DA/ProjectDA/Distances(1).csv");
 
     // Print the loaded graph to verify data
     graph.printGraph();
