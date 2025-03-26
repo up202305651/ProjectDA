@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/tomas/CLionProjects/da/cmake-build-debug/
+cmake_ninja_workdir = C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target da
 
@@ -49,23 +49,29 @@ cmake_ninja_workdir = /home/tomas/CLionProjects/da/cmake-build-debug/
 
 build cmake_object_order_depends_target_da: phony || .
 
-build CMakeFiles/da.dir/main.cpp.o: CXX_COMPILER__da_unscanned_Debug /home/tomas/CLionProjects/da/main.cpp || cmake_object_order_depends_target_da
-  DEP_FILE = CMakeFiles/da.dir/main.cpp.o.d
+build CMakeFiles/da.dir/main.cpp.obj: CXX_COMPILER__da_unscanned_Debug C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/main.cpp || cmake_object_order_depends_target_da
+  DEP_FILE = CMakeFiles\da.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/da.dir
-  OBJECT_FILE_DIR = CMakeFiles/da.dir
+  OBJECT_DIR = CMakeFiles\da.dir
+  OBJECT_FILE_DIR = CMakeFiles\da.dir
 
-build CMakeFiles/da.dir/graph.cpp.o: CXX_COMPILER__da_unscanned_Debug /home/tomas/CLionProjects/da/graph.cpp || cmake_object_order_depends_target_da
-  DEP_FILE = CMakeFiles/da.dir/graph.cpp.o.d
+build CMakeFiles/da.dir/graph.cpp.obj: CXX_COMPILER__da_unscanned_Debug C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/graph.cpp || cmake_object_order_depends_target_da
+  DEP_FILE = CMakeFiles\da.dir\graph.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/da.dir
-  OBJECT_FILE_DIR = CMakeFiles/da.dir
+  OBJECT_DIR = CMakeFiles\da.dir
+  OBJECT_FILE_DIR = CMakeFiles\da.dir
 
-build CMakeFiles/da.dir/dijkstra.cpp.o: CXX_COMPILER__da_unscanned_Debug /home/tomas/CLionProjects/da/dijkstra.cpp || cmake_object_order_depends_target_da
-  DEP_FILE = CMakeFiles/da.dir/dijkstra.cpp.o.d
+build CMakeFiles/da.dir/dijkstra.cpp.obj: CXX_COMPILER__da_unscanned_Debug C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/dijkstra.cpp || cmake_object_order_depends_target_da
+  DEP_FILE = CMakeFiles\da.dir\dijkstra.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/da.dir
-  OBJECT_FILE_DIR = CMakeFiles/da.dir
+  OBJECT_DIR = CMakeFiles\da.dir
+  OBJECT_FILE_DIR = CMakeFiles\da.dir
+
+build CMakeFiles/da.dir/batch.cpp.obj: CXX_COMPILER__da_unscanned_Debug C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/batch.cpp || cmake_object_order_depends_target_da
+  DEP_FILE = CMakeFiles\da.dir\batch.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\da.dir
+  OBJECT_FILE_DIR = CMakeFiles\da.dir
 
 
 # =============================================================================
@@ -73,22 +79,24 @@ build CMakeFiles/da.dir/dijkstra.cpp.o: CXX_COMPILER__da_unscanned_Debug /home/t
 
 
 #############################################
-# Link the executable da
+# Link the executable da.exe
 
-build da: CXX_EXECUTABLE_LINKER__da_Debug CMakeFiles/da.dir/main.cpp.o CMakeFiles/da.dir/graph.cpp.o CMakeFiles/da.dir/dijkstra.cpp.o
+build da.exe: CXX_EXECUTABLE_LINKER__da_Debug CMakeFiles/da.dir/main.cpp.obj CMakeFiles/da.dir/graph.cpp.obj CMakeFiles/da.dir/dijkstra.cpp.obj CMakeFiles/da.dir/batch.cpp.obj
   FLAGS = -g
-  OBJECT_DIR = CMakeFiles/da.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = da
-  TARGET_PDB = da.dbg
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\da.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = da.exe
+  TARGET_IMPLIB = libda.dll.a
+  TARGET_PDB = da.exe.dbg
 
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/tomas/CLionProjects/da/cmake-build-debug && /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\da\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -99,7 +107,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/tomas/CLionProjects/da/cmake-build-debug && /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/tomas/CLionProjects/da -B/home/tomas/CLionProjects/da/cmake-build-debug
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\da\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\da -BC:\Users\Dival\Documents\Universidade\2ANO\2_SEM\DA\Project_git\da\cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -109,15 +117,17 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build da: phony da.exe
+
 # =============================================================================
 # Folder targets.
 
 # =============================================================================
 
 #############################################
-# Folder: /home/tomas/CLionProjects/da/cmake-build-debug
+# Folder: C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/cmake-build-debug
 
-build all: phony da
+build all: phony da.exe
 
 # =============================================================================
 # Built-in targets
@@ -126,14 +136,14 @@ build all: phony da
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/tomas/CLionProjects/da/CMakeLists.txt /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/GNU-C.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/GNU.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-GNU-C.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-GNU-CXX.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-GNU.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-Initialize.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.30.5/CMakeCCompiler.cmake CMakeFiles/3.30.5/CMakeCXXCompiler.cmake CMakeFiles/3.30.5/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.5/CMakeCCompiler.cmake CMakeFiles/3.30.5/CMakeCXXCompiler.cmake CMakeFiles/3.30.5/CMakeRCCompiler.cmake CMakeFiles/3.30.5/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/tomas/CLionProjects/da/CMakeLists.txt /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/GNU-C.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Compiler/GNU.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-GNU-C.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-GNU-CXX.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-GNU.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux-Initialize.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/Linux.cmake /home/tomas/clion-2024.3.3/bin/cmake/linux/x64/share/cmake-3.30/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.30.5/CMakeCCompiler.cmake CMakeFiles/3.30.5/CMakeCXXCompiler.cmake CMakeFiles/3.30.5/CMakeSystem.cmake: phony
+build C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2024.3.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.5/CMakeCCompiler.cmake CMakeFiles/3.30.5/CMakeCXXCompiler.cmake CMakeFiles/3.30.5/CMakeRCCompiler.cmake CMakeFiles/3.30.5/CMakeSystem.cmake: phony
 
 
 #############################################

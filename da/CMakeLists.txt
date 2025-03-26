@@ -7,4 +7,5 @@ add_executable(da main.cpp
         graph.cpp
         dijkstra.cpp
         main.cpp
+        batch.cpp
 )

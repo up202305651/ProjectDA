@@ -1,6 +1,6 @@
 #include "graph.h"
 #include <iostream>
-
+#include "batch.h"
 #include "dijkstra.h"
 
 
@@ -20,8 +20,8 @@ void manualMode() {
         }
         else if (mode == 1) {
             Graph graph;
-            graph.loadLocations("/home/tomas/CLionProjects/da/Locations(1).csv");
-            graph.loadDistances("/home/tomas/CLionProjects/da/Distances(1).csv");
+            graph.loadLocations("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/Locations(1).csv");
+            graph.loadDistances("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/Distances(1).csv");
             // Independent Route Planning
             int source, destination;
             cout << "\n=== Independent Route Planning ===\n";
@@ -40,8 +40,8 @@ void manualMode() {
         }
         else if (mode == 2) {
             Graph graph;
-            graph.loadLocations("/home/tomas/CLionProjects/da/Locations(1).csv");
-            graph.loadDistances("/home/tomas/CLionProjects/da/Distances(1).csv");
+            graph.loadLocations("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/Locations(1).csv");
+            graph.loadDistances("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/Distances(1).csv");
             // Restricted Route Planning
             int source, destination, includeNode;
             vector<int> nodesToAvoid;
@@ -102,8 +102,38 @@ int main(){
         cout << "Exiting program...\n";
     }
     else if (choice == 1) {
-        cout<<"Batch mode :)\n";
+        cout<<"\n Batch mode :)\n";
         /*batchMode();*/
+        Graph graph;
+        graph.loadLocations("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/Locations(1).csv");
+        graph.loadDistances("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/Distances(1).csv");
+
+        Batch batch(&graph);
+
+        batch.loadFromFile("C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/input.txt");
+
+
+        std::vector<int> nodeIds;
+        for (Vertex* vertex : batch.getAvoidNodes()) {
+            nodeIds.push_back(vertex->getId());
+        }
+        nodeIds.push_back(-1);
+
+        std::vector<std::pair<int, int>> segmentIds;
+        for (Edge* edge : batch.getAvoidSegments()) {
+            int sourceId = edge->getOrig()->getId();
+            int destId = edge->getDest()->getId();
+            segmentIds.emplace_back(sourceId, destId);
+        }
+        segmentIds.emplace_back(-1, -1);
+
+
+        dijkstraDriving(&graph, batch.getSource()->getId());
+        displayTwo(&graph, batch.getSource()->getId(), batch.getDestination()->getId() ,
+            nodeIds, segmentIds, -1);
+
+
+
     }
     else if (choice == 2) {
         manualMode();

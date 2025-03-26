@@ -81,6 +81,7 @@ void displayFirst(Graph *g, int origin, int destination) {
     reverse(path.begin(), path.end());
 
     // Output result
+    cout << "\n Display : \n";
     cout << "Shortest Path: ";
     for (int id : path) cout << id << " ";
     cout << "\nTotal Weight: " << totalWeight << endl;
