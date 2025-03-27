@@ -3,237 +3,160 @@
 #include <algorithm>
 
 #include "graph.h"
-
 #include <iostream>
 #include <limits.h>
+#include <limits>
 #include <vector>
 #include <unordered_map>
-#include <limits>
 #include "MutablePriorityQueue.h"
 
 using namespace std;
 
-bool relax(Edge* edge);
+static const double INF = numeric_limits<double>::infinity();
+
+void dijkstraHelper(Graph* g, int start, bool drivingMode, vector<double>& dist, vector<Edge*>& path) {
+    dist.assign(g->getNumVertex(), INF);
+    path.assign(g->getNumVertex(), nullptr);
+
+    MutablePriorityQueue<Vertex> pq;
+
+    Vertex* s = g->findVertex(start);
+    if (!s) return;
+
+    dist[s->getId() - 1] = 0.0; // start vertex has distance 0
+    s->setDist(0.0);
+    pq.insert(s);
+
+    // Dijkstra's algorithm
+    while (!pq.empty()) {
+        Vertex* u = pq.extractMin();
+        double distU = dist[u->getId() - 1];
+        for (Edge* e : u->getAdj()) {
+            Vertex* w = e->getDest();
+
+            double time = drivingMode ? e->getWeightDriving() : e->getWeightWalking();
+            if (time == INF) continue;
+
+            double newDist = distU + time;
+            if (newDist < dist[w->getId() - 1]) {
+                dist[w->getId() - 1] = newDist;
+                path[w->getId() - 1] = e; // store the edge used to reach w
+
+                w->setDist(newDist);
+                if (!pq.contains(w)) {
+                    pq.insert(w);
+                } else {
+                    pq.decreaseKey(w);
+                }
+            }
+        }
+    }
+}
 
 void dijkstraDrivingWalking(Graph* g, const int& src, const int& dest, int maxWalkingTime) {
-    Vertex* sourceVertex = g->findVertex(src);
-    Vertex* destVertex = g->findVertex(dest);
+    Vertex* origin = g->findVertex(src);
+    Vertex* destination = g->findVertex(dest);
 
-    if (!sourceVertex || !destVertex) {
+    if (!origin || !destination) {
         cout << "Source or destination vertex not found!" << endl;
         return;
     }
 
-    // ===== DIJKSTRA FOR DRIVING =====
-    for (Vertex* v : g->getVertexSet()) {
-        v->setDist(numeric_limits<double>::infinity());
-        v->setPath(nullptr);
-    }
-    sourceVertex->setDist(0);
-
-    MutablePriorityQueue<Vertex> pq;
-    pq.insert(sourceVertex);
-
-    while (!pq.empty()) {
-        Vertex* u = pq.extractMin();
-
-        for (Edge* edge : u->getAdj()) {
-            Vertex* v = edge->getDest();
-            double weight = edge->getWeightDriving();
-
-            if (weight == numeric_limits<double>::infinity()) {
-                continue; // No driving access
-            }
-
-            double newDist = u->getDist() + weight;
-            if (newDist < v->getDist()) {
-                v->setDist(newDist);
-                v->setPath(edge);
-
-                if (v->queueIndex != 0) {
-                    pq.decreaseKey(v);
-                } else {
-                    pq.insert(v);
-                }
-            }
-        }
-    }
-
-    // ===== FIND BEST PARKING SPOTS AND CORRESPONDING WALKING DISTANCES =====
-    double bestTotalTime = numeric_limits<double>::infinity();
-    Vertex* bestParkingVertex = nullptr;
-    double bestDriveTime = 0;
-    double bestWalkTime = 0;
-
-    for (Vertex* parkingVertex : g->getVertexSet()) {
-        if (parkingVertex->hasParking() == 0) continue;
-
-        double driveTime = parkingVertex->getDist();
-        if (driveTime == numeric_limits<double>::infinity()) continue; // unreachable parking spot
-
-        // save driving path and time before resetting for walking processing
-        double currentDriveTime = driveTime;
-
-        // run dijkstra for walking from this parking spot
-        for (Vertex* v : g->getVertexSet()) {
-            v->setDist(numeric_limits<double>::infinity());
-            v->setPath(nullptr);
-        }
-        parkingVertex->setDist(0);
-
-        MutablePriorityQueue<Vertex> pqWalk;
-        pqWalk.insert(parkingVertex);
-
-        while (!pqWalk.empty()) {
-            Vertex* u = pqWalk.extractMin();
-
-            for (Edge* edge : u->getAdj()) {
-                Vertex* v = edge->getDest();
-                double weight = edge->getWeightWalking();
-
-                if (weight == numeric_limits<double>::infinity()) continue; // No walking access
-
-                double newDist = u->getDist() + weight;
-                if (newDist < v->getDist()) {
-                    v->setDist(newDist);
-                    v->setPath(edge);
-
-                    if (v->queueIndex != 0) {
-                        pqWalk.decreaseKey(v);
-                    } else {
-                        pqWalk.insert(v);
-                    }
-                }
-            }
-        }
-
-        double walkTime = destVertex->getDist(); // walking time from parking to destination
-        if (walkTime == numeric_limits<double>::infinity()) continue;
-
-        if (walkTime <= maxWalkingTime) { // valid route
-            double totalTime = currentDriveTime + walkTime;
-            // first priority: shortest total time
-            // second priority: maximum driving time when total times are equal
-
-            if ((totalTime < bestTotalTime) ||
-                (totalTime == bestTotalTime &&
-                walkTime > bestWalkTime)) {
-                bestTotalTime = totalTime;
-                bestParkingVertex = parkingVertex;
-                bestDriveTime = currentDriveTime;
-                bestWalkTime = walkTime;
-                bestWalkTime = walkTime;
-            }
-        }
-    }
-
-    // ===== BEST RESULT FOUND =====
-    if (!bestParkingVertex) {
-        cout << "No valid route found within the given walking time limit." << endl;
+    if (origin->hasParking() > 0 || destination->hasParking() > 0) {
+        cout << "Origin and destination nodes must not be parking nodes." << endl;
         return;
     }
 
-    // reconstruct driving path
-    vector<int> drivingPath;
+    vector<double> distDriving, distWalking;
+    vector<Edge*> pathDriving, pathWalking;
+
+    // ===== DIJKSTRA FOR DRIVING =====
+    dijkstraHelper(g, src, true, distDriving, pathDriving);
+
+    // ===== DIJKSTRA FOR WALKING =====
+    dijkstraHelper(g, dest, false, distWalking, pathWalking);
+
+    // ===== SEARCH FOR THE BEST PARKING NODE =====
+    double bestTotalTime = INF;
+    int bestParkingId = -1;
+    double bestParkingWalkingTime = 0.0;
+
     for (Vertex* v : g->getVertexSet()) {
-        v->setDist(numeric_limits<double>::infinity());
-        v->setPath(nullptr);
-    }
-    sourceVertex->setDist(0);
+        if (v->getId() == src || v->getId() == dest) continue;
+        if (v->hasParking() == 0) continue;
 
-    pq = MutablePriorityQueue<Vertex>();
-    pq.insert(sourceVertex);
+        double driveTime = distDriving[v->getId() - 1];
+        double walkTimeFromDest = distWalking[v->getId() - 1];
 
-    while (!pq.empty()) {
-        Vertex* u = pq.extractMin();
+        if (driveTime == INF || walkTimeFromDest == INF) continue;
+        if (walkTimeFromDest > maxWalkingTime) continue;
 
-        if (u->getId() == bestParkingVertex->getId()) break;
+        double totalTime = driveTime + walkTimeFromDest;
 
-        for (Edge* edge : u->getAdj()) {
-            Vertex* v = edge->getDest();
-            double weight = edge->getWeightDriving();
-
-            if (weight == numeric_limits<double>::infinity()) continue;
-
-            double newDist = u->getDist() + weight;
-            if (newDist < v->getDist()) {
-                v->setDist(newDist);
-                v->setPath(edge);
-
-                if (v->queueIndex != 0) {
-                    pq.decreaseKey(v);
-                } else {
-                    pq.insert(v);
-                }
+        if (totalTime < bestTotalTime) {
+            bestTotalTime = totalTime;
+            bestParkingId = v->getId();
+            bestParkingWalkingTime = walkTimeFromDest;
+        } else if (abs(totalTime -  bestTotalTime) < 1e-9) {
+            // empate: escolher o que tem maior tempo de caminhada
+            if (walkTimeFromDest > bestParkingWalkingTime) {
+                bestParkingId = v->getId();
+                bestParkingWalkingTime = walkTimeFromDest;
             }
         }
     }
 
-    Vertex* curr = bestParkingVertex;
-    while (curr) {
-        drivingPath.push_back(curr->getId());
-        curr = curr->getPath() ? curr->getPath()->getOrig() : nullptr;
-    }
-    reverse(drivingPath.begin(), drivingPath.end());
-
-    vector<int> walkingPath;
-
-    // reconstruct walking path
-    for (Vertex* v : g->getVertexSet()) {
-        v->setDist(numeric_limits<double>::infinity());
-        v->setPath(nullptr);
-    }
-    bestParkingVertex->setDist(0);
-
-    pq = MutablePriorityQueue<Vertex>();
-    pq.insert(bestParkingVertex);
-
-    while (!pq.empty()) {
-        Vertex* u = pq.extractMin();
-
-        if (u->getId() == destVertex->getId()) break;
-
-        for (Edge* edge : u->getAdj()) {
-            Vertex* v = edge->getDest();
-            double weight = edge->getWeightWalking();
-
-            if (weight == numeric_limits<double>::infinity()) continue;
-
-            double newDist = u->getDist() + weight;
-            if (newDist < v->getDist()) {
-                v->setDist(newDist);
-                v->setPath(edge);
-
-                if (v->queueIndex != 0) {
-                    pq.decreaseKey(v);
-                } else {
-                    pq.insert(v);
-                }
-            }
-        }
+    if (bestParkingId == -1) {
+        cout << "No parking node found to the requirements." << endl;
+        return;
     }
 
-    curr = destVertex;
-    while (curr) {
-        walkingPath.push_back(curr->getId());
-        curr = curr->getPath() ? curr->getPath()->getOrig() : nullptr;
-    }
-    reverse(walkingPath.begin(), walkingPath.end());
+    vector<double> distWalkFoward;
+    vector<Edge*> pathWalkFoward;
+    dijkstraHelper(g, bestParkingId, false, distWalkFoward, pathWalkFoward);
 
-    cout << "Source: " << src << endl;
-    cout << "Destination: " << dest << endl;
-    cout << "DrivingRoute: ";
-    for (size_t i = 0; i < drivingPath.size(); i++) {
-        cout << drivingPath[i];
-        if (i < drivingPath.size() - 1) cout << ",";
+    // ===== RECONSTRUCT THE ROUTE =====
+    vector<int> driveRoute;
+    int cur = bestParkingId;
+    while (cur != src) {
+        Edge* e = pathDriving[cur - 1];
+        if (!e) break;
+        driveRoute.push_back(cur);
+        cur = e->getOrig()->getId();
     }
-    cout << "(" << bestDriveTime << ")" << endl;
-    cout << "ParkingNode: " << bestParkingVertex->getId() << endl;
-    cout << "WalkingRoute: ";
-    for (size_t i = 0; i < walkingPath.size(); i++) {
-        cout << walkingPath[i];
-        if (i < walkingPath.size() - 1) cout << ",";
+    driveRoute.push_back(src);
+    reverse(driveRoute.begin(), driveRoute.end());
+
+    vector<int> walkRoute;
+    cur = dest;
+    while (cur != bestParkingId) {
+        Edge* e = pathWalkFoward[cur - 1];
+        if (!e) break;
+        walkRoute.push_back(cur);
+        cur = e->getOrig()->getId();
     }
-    cout << "(" << bestWalkTime << ")" << endl;
-    cout << "TotalTime: " << bestTotalTime << endl;
+    walkRoute.push_back(bestParkingId);
+    reverse(walkRoute.begin(), walkRoute.end());
+
+    // ===== PRINT THE RESULT =====
+    cout << "Best Parking Node = " << bestParkingId << endl;
+    cout << "Total time = " << bestTotalTime << " (driving + walking)" << endl;
+
+    // Print driving route
+    cout << "Driving route: ";
+    for (size_t i = 0; i < driveRoute.size(); i++) {
+        cout << driveRoute[i];
+        if (i + 1 < driveRoute.size()) cout << " -> ";
+    }
+    cout << '(' << distDriving[bestParkingId - 1] << ')';
+    cout << endl;
+
+    // Print walking route
+    cout << "Walking route: ";
+    for (size_t i = 0; i < walkRoute.size(); i++) {
+        cout << walkRoute[i];
+        if (i + 1 < walkRoute.size()) cout << " -> ";
+    }
+    cout << '(' << distWalking[bestParkingId - 1] << ')';
+    cout << endl;
 }

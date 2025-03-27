@@ -27,6 +27,7 @@ public:
     T * extractMin();
     void decreaseKey(T * x);
     bool empty();
+    bool contains(T * x);
 };
 
 // Index calculations
@@ -44,6 +45,13 @@ template <class T>
 bool MutablePriorityQueue<T>::empty() {
     return H.size() == 1;
 }
+
+template <class T>
+bool MutablePriorityQueue<T>::contains(T* x) {
+    if (x->queueIndex < H.size() && H[x->queueIndex] == x) return true;
+    return false;
+}
+
 
 template <class T>
 T* MutablePriorityQueue<T>::extractMin() {
