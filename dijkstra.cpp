@@ -186,3 +186,110 @@ void displayTwo(Graph *g, int origin, int destination, const vector<int>& nodesT
     // **Imprimir peso total corretamente**
     cout << "\nTotal Weight: " << totalWeight << " minutes" << endl;
 }
+
+void displayTwoFile(Graph *g, int origin, int destination, const vector<int>& nodesToAvoid,
+                    const vector<pair<int, int>>& edgesToAvoid, int includeVertex, ofstream &outputFile) {
+    // Mark nodes to avoid
+    for (int nodeId : nodesToAvoid) {
+        Vertex *v = g->findVertex(nodeId);
+        if (v) v->setAvoidVertex(true);
+    }
+
+    // Mark edges to avoid
+    for (const auto& edgePair : edgesToAvoid) {
+        Vertex *v = g->findVertex(edgePair.first);
+        if (v) {
+            for (Edge *e : v->getAdj()) {
+                if (e->getDest()->getId() == edgePair.second) {
+                    e->setAvoidEdge(true);
+                }
+            }
+        }
+    }
+
+    double totalWeight = 0;  // Store the total weight of the path
+
+    outputFile << "Source:" << origin << "\n";
+    outputFile << "Destination:" << destination << "\n";
+    outputFile << "RestrictedDrivingRoute:";
+
+    // **If there's no required node, execute a single Dijkstra**
+    if (includeVertex == -1 || includeVertex == origin || includeVertex == destination) {
+        dijkstraDriving(g, origin);
+        Vertex *destino = g->findVertex(destination);
+        if (!destino || destino->getDist() == INT_MAX) {
+            outputFile << "No path found from " << origin << " to " << destination << "\n";
+            return;
+        }
+
+        vector<int> path;
+        totalWeight = destino->getDist();
+        Vertex *current = destino;
+
+        while (current != nullptr && current->getId() != origin) {
+            path.push_back(current->getId());
+            current = current->getPath() ? current->getPath()->getOrig() : nullptr;
+        }
+        path.push_back(origin);
+        reverse(path.begin(), path.end());
+
+        // **Write the result to the file**
+        for (size_t i = 0; i < path.size(); i++) {
+            outputFile << path[i];
+            if (i < path.size() - 1) outputFile << ",";
+        }
+        outputFile << "(" << totalWeight << ")\n";
+
+        return;
+    }
+    else {
+        // **Dijkstra from source to includeVertex**
+        dijkstraDriving(g, origin);
+        Vertex *midpoint = g->findVertex(includeVertex);
+        if (!midpoint || midpoint->getDist() == INT_MAX) {
+            outputFile << "No path found from " << origin << " to required node " << includeVertex << "\n";
+            return;
+        }
+
+        // **Store the first path and weight**
+        vector<int> firstPath;
+        double weight1 = midpoint->getDist();
+        Vertex *current = midpoint;
+        while (current != nullptr && current->getId() != origin) {
+            firstPath.push_back(current->getId());
+            current = current->getPath() ? current->getPath()->getOrig() : nullptr;
+        }
+        firstPath.push_back(origin);
+        reverse(firstPath.begin(), firstPath.end());
+
+        // **Dijkstra from includeVertex to destination**
+        dijkstraDriving(g, includeVertex);
+        Vertex *destino = g->findVertex(destination);
+        if (!destino || destino->getDist() == INT_MAX) {
+            outputFile << "No path found from required node " << includeVertex << " to " << destination << "\n";
+            return;
+        }
+
+        // **Store the second path and weight**
+        vector<int> secondPath;
+        double weight2 = destino->getDist();
+        current = destino;
+        while (current != nullptr && current->getId() != includeVertex) {
+            secondPath.push_back(current->getId());
+            current = current->getPath() ? current->getPath()->getOrig() : nullptr;
+        }
+
+        // **Calculate total weight**
+        totalWeight = weight1 + weight2;
+
+        // **Combine paths**
+        firstPath.insert(firstPath.end(), secondPath.rbegin(), secondPath.rend());
+
+        // **Write the result to the file**
+        for (size_t i = 0; i < firstPath.size(); i++) {
+            outputFile << firstPath[i];
+            if (i < firstPath.size() - 1) outputFile << ",";
+        }
+        outputFile << "(" << totalWeight << ")\n";
+    }
+}
