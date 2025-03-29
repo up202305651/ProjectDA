@@ -1,4 +1,6 @@
 #include "graph.h"
+
+#include <climits>
 #include <fstream>
 #include <limits>
 #include <sstream>
@@ -35,6 +37,14 @@ bool Vertex::isProcessing() const {
 
 unsigned int Vertex::getIndegree() const {
     return indegree;
+}
+
+void Vertex::setAvoidVertex(bool value) {
+    avoid=value;
+}
+
+bool Vertex::getAvoidVertex() const {
+    return avoid;
 }
 
 double Vertex::getDist() const {
@@ -115,6 +125,13 @@ double Edge::getWeightDriving() const {
 Vertex *Edge::getOrig() const {
     return orig;
 }
+void Edge::setAvoidEdge(bool value) {
+    avoid=value;
+}
+
+bool Edge::getAvoidEdge() const {
+    return avoid;
+}
 
 // =================== Graph Class ===================
 Graph::~Graph() {
@@ -129,6 +146,10 @@ Vertex *Graph::findVertex(int id) const {
             return v;
     }
     return nullptr;
+}
+
+void Edge::setReverse(Edge *reverse) {
+    this->reverse = reverse;
 }
 
 bool Graph::addVertex(int id,string code,int parking) {
@@ -153,13 +174,28 @@ bool Graph::removeVertex(int id) {
 }
 
 bool Graph::addEdge(int src, int dest, double driving, double walking) {
-    Vertex *v1 = findVertex(src);
-    Vertex *v2 = findVertex(dest);
+   auto v1 = findVertex(src);
+    auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
     v1->addEdge(v2, driving, walking);
     return true;
 }
+    
+
+
+bool Graph::addBidirectionalEdge(int source, int dest, double driving, double walking) {
+    auto v1 = findVertex(source);
+    auto v2 = findVertex(dest);
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+    auto e1 = v1->addEdge(v2, driving, walking);
+    auto e2 = v2->addEdge(v1, driving, walking);
+    e1->setReverse(e2);
+    e2->setReverse(e1);
+    return true;
+}
+
 
 bool Graph::removeEdge(int src, int dest) {
     Vertex *v = findVertex(src);
@@ -221,7 +257,7 @@ void Graph::loadDistances(const string& filename) {
         if (getline(ss, code1, ',') && getline(ss, code2, ',') && getline(ss, drivingStr, ',') && getline(ss, walkingStr, ',')) {
             // Convert "X" to a very large number (or just skip adding the edge for driving)
             if (drivingStr == "X") {
-                driving = numeric_limits<double>::infinity(); // No driving access
+                driving = INT_MAX; // No driving access
             } else {
                 driving = stod(drivingStr);
             }
@@ -229,7 +265,7 @@ void Graph::loadDistances(const string& filename) {
             walking = stod(walkingStr); // Walking is always a number
 
             // Find vertices by their codes
-            Vertex* v1 = n;
+            Vertex* v1 = nullptr;
             Vertex* v2 = nullptr;
 
             for (Vertex* v : vertexSet) {
@@ -241,7 +277,9 @@ void Graph::loadDistances(const string& filename) {
                 cout << "Adding Edge: " << code1 << " -> " << code2
                      << " (Driving: " << (driving == numeric_limits<double>::infinity() ? "N/A" : to_string(driving))
                      << ", Walking: " << walking << ")" << endl;
-                v1->addEdge(v2, driving, walking);
+                if (v1 && v2) {
+                    addBidirectionalEdge(v1->getId(), v2->getId(), driving, walking); // ✅ Use Graph::addEdge
+                }
             } else {
                 cerr << "Warning: Unknown location code(s) - " << code1 << ", " << code2 << endl;
             }
@@ -266,7 +304,7 @@ void Graph::printGraph() const {
         }
         cout << " -> ";
         for (Edge *e : v->getAdj()) {
-            cout << e->getDest()->getId() << "(" << e->getWeightDriving() << ") "<<"(" << e->getWeightWalking() << ") ";
+            cout << e->getDest()->getId() << "(" << e->getWeightDriving() << ")"<<"(" << e->getWeightWalking() << ") ";
         }
         cout << endl;
     }

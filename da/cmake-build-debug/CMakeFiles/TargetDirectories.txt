@@ -1,3 +1,0 @@
-C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/cmake-build-debug/CMakeFiles/da.dir
-C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Dival/Documents/Universidade/2ANO/2_SEM/DA/Project_git/da/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.30)
-project(untitled)
+project(da)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled main.cpp
+add_executable(da main.cpp
         graph.cpp
-        graph.h
         dijkstra.cpp
-        dijkstra.h)
+        main.cpp
+        batch.cpp
+)
