@@ -1,146 +1,94 @@
-#include "batch.h"
-#include <iostream>
-#include <regex>
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <string>
-
+#include "graph.h"
 #include "dijkstra.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
+using namespace std;
 
-bool Batch::loadFromFile(const std::string& filename) {
-    std::ifstream file;
-    file.open(filename);
-    if (!file.is_open()) {
-        std::cerr << "Error opening file " << filename << std::endl;
-    }
-    string line;
-    while (std::getline(file, line)) {
-        Batch::processLine(line);
-    }
-    file.close();
-    return true;
+void batchMode() {
+    ifstream inputFile("/home/tomas/CLionProjects/da/input.txt");
+    ofstream outputFile("/home/tomas/CLionProjects/da/output.txt");
 
-}
-void Batch::setOutputFile(std::ofstream *strinG) {
-    std::ofstream *file(strinG);
-    file_ = file;
-}
-std::string Batch::getMode() const { return mode_; }
-Vertex* Batch::getSource() const { return source_; }
-Vertex* Batch::getDestination() const { return destination_; }
-double Batch::getMaxWalkTime() const { return maxWalkTime_; }
-const std::vector<Vertex*>& Batch::getAvoidNodes() const { return avoidNodes_; }
-const std::vector<Edge*>& Batch::getAvoidSegments() const { return avoidSegments_; }
-Vertex* Batch::getIncludeNode() const { return includeNode_; }
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        cerr << "Error: Could not open input.txt or output.txt" << endl;
+        return;
+    }
 
+    string mode;
+    getline(inputFile, mode, ':');  // Read 'Mode:' line
+    inputFile >> mode;
+    inputFile.ignore();  // Skip the remaining newline character after reading the mode
 
-void Batch::processLine(const std::string& line) {
-    regex modeRegex("^Mode\\s*:\\s*([a-zA-Z-]+)\\s*$");
-    regex sourceRegex("^Source\\s*:\\s*(\\d+)\\s*$");
-    regex destinationRegex("^Destination\\s*:\\s*(\\d+)\\s*$");
-    regex avoidNodesRegex("^AvoidNodes\\s*:\\s*([\\d,\\s]*)\\s*$");
-    regex avoidSegmentsRegex(R"(^AvoidSegments\s*:\s*((?:\(\s*\d+\s*,\s*\d+\s*\)\s*(?:,\s*)?)*)\s*$)");
-    regex includeNodeRegex("^IncludeNode\\s*:?\\s*(\\d*)\\s*$");
-    regex maxWalkTimeRegex("^MaxWalkTime\\s*:\\s*(\\d+\\.?\\d*)\\s*$");
+    Graph graph;
+    graph.loadLocations("/home/tomas/CLionProjects/da/Locations(1).csv");
+    graph.loadDistances("/home/tomas/CLionProjects/da/Distances(1).csv");
 
-    smatch match;
-    if (regex_match(line, match, modeRegex)) {
-        mode_ = match[1];
-        cout << "Mode: " << mode_ << endl;
-    }
-    else if (regex_match(line, match, sourceRegex)) {
-        source_ = graph_->findVertex(stoi(match[1]));
-        cout << "Source: " << source_->getId() << endl;
-    }
-    else if (regex_match(line, match, maxWalkTimeRegex)) {
-        maxWalkTime_ = stod(match[1]);
-        cout << "MaxWalkTime: " << maxWalkTime_ << endl;
-    }
-    else if (regex_match(line, match, destinationRegex)) {
-        destination_ = graph_->findVertex(stoi(match[1]));
-        cout << "Destination: " << destination_->getId() << endl;
-    }
-    else if (regex_match(line, match, avoidNodesRegex)) {
-        string nodesStr = match[1];
-        // Se a string não estiver vazia, separar por vírgula:
-        if (!nodesStr.empty()) {
-            stringstream ss(nodesStr);
-            string token;
-            while(getline(ss, token, ',')) {
-                // Remover espaços:
-                token.erase(0, token.find_first_not_of(" \t"));
-                token.erase(token.find_last_not_of(" \t") + 1);
-                if (!token.empty())
-                    avoidNodes_.push_back(graph_->findVertex(stoi(token)));
+    if (mode == "driving") {
+        cout << "Mode: " << mode << endl;
+        int source, destination;
+        vector<int> nodesToAvoid;
+        vector<pair<int, int>> edgesToAvoid;
+        int includeNode = -1;
+
+        string line;
+
+        // Read source
+        getline(inputFile, line);
+        stringstream ssSource(line);
+        ssSource.ignore(100, ':');  // Ignore "Source:"
+        ssSource >> source;
+        cout << "Source: " << source << endl;
+
+        // Read destination
+        getline(inputFile, line);
+        stringstream ssDestination(line);
+        ssDestination.ignore(100, ':');  // Ignore "Destination:"
+        ssDestination >> destination;
+        cout << "Destination: " << destination << endl;
+
+        // Read AvoidNodes
+        if (getline(inputFile, line) && line.find("AvoidNodes:") != string::npos) {
+            stringstream ssNodes(line.substr(line.find(":") + 1));
+            int node;
+            while (ssNodes >> node) {
+                nodesToAvoid.push_back(node);
             }
         }
-        cout << "AvoidNodes:";
-        for (Vertex* n : avoidNodes_)
-            cout << " " << n->getId();
-        cout << endl;
-    }
-    else if (regex_match(line, match, avoidSegmentsRegex)) {
-        string segStr = match[1];
-        // Usar outra regex para extrair cada par dentro dos parênteses:
-        regex segPairRegex(R"(\(\s*(\d+)\s*,\s*(\d+)\s*\))");
-        auto segBegin = sregex_iterator(segStr.begin(), segStr.end(), segPairRegex);
-        auto segEnd = sregex_iterator();
-        for (auto it = segBegin; it != segEnd; ++it) {
-            Vertex* temp_source =  graph_->findVertex(stoi((*it)[1]));
-            Vertex* temp_target = graph_->findVertex(stoi((*it)[2]));
-            Edge* existingEdge;
-            for (Edge* edge : temp_source->getAdj()) {
-                if (edge->getDest() == temp_target) { // Se o destino da aresta for o temp_target
-                   existingEdge = edge;
-                   break;
-                }
+
+        // Read AvoidSegments
+        if (getline(inputFile, line) && line.find("AvoidSegments:") != string::npos) {
+            stringstream ssSegments(line.substr(line.find(":") + 1));
+            int from, to;
+            while (ssSegments >> from >> to) {
+                edgesToAvoid.emplace_back(from, to);
             }
-            avoidSegments_.push_back(existingEdge);
-
         }
-        cout << "AvoidSegments:";
-        cout << " (";
-        for (Edge* seg : avoidSegments_) {
-            cout << seg->getOrig()->getId() << "," << seg->getDest()->getId() << " , ";
+
+        // Read IncludeNode
+        if (getline(inputFile, line) && line.find("IncludeNode:") != string::npos) {
+            stringstream ssInclude(line.substr(line.find(":") + 1));
+            ssInclude >> includeNode;
         }
-        cout << ")";
-        cout << endl;
-    }
-    else if (regex_match(line, match, includeNodeRegex)) {
-        string inc = match[1];
-        if (!inc.empty())
-            includeNode_ = graph_->findVertex(stoi(inc));
-        cout << "IncludeNode: " << includeNode_->getId() << endl;
-    }
-    else {
-        cout << "Linha não reconhecida: " << line << endl;
-    }
 
-}
+        // Perform the Dijkstra algorithm for driving mode
+        dijkstraDriving(&graph, source);
 
-void Write(ofstream& file, string label,int number){
-    file << label << ":" << number << endl;
-}
-
-void WriteWithoutExtra(ofstream& file, string label, vector<int> numbers) {
-    file << label << ":";
-    for (int i = 0; i < numbers.size(); i++) {
-        file << numbers[i];
-        if ( i < numbers.size() - 1) {
-            file << ",";
+        // Handle case when no constraints are specified
+        if (nodesToAvoid.empty() && edgesToAvoid.empty() && includeNode == -1) {
+            cout << "Ainda não implementei" << endl;
+            // Placeholder for handling the normal case (no constraints)
+            // dijkstraDriving(&graph, source);
+            // displayFirstFile(&graph, source, destination, outputFile);
+        } else {
+            dijkstraDriving(&graph, source);
+            displayTwoFile(&graph, source, destination, nodesToAvoid, edgesToAvoid, includeNode, outputFile);
         }
+    } else {
+        outputFile << "Invalid mode specified in input.txt" << endl;
     }
-}
 
-void WriteWithExtra(ofstream& file, string label, vector<int> numbers, int extra) {
-    file << label << ":";
-    for (int i = 0; i < numbers.size(); i++) {
-        file << numbers[i];
-        if ( i < numbers.size() - 1) {
-            file << ",";
-        }
-    }
-    file << "("<< extra << ")" << endl;
+    inputFile.close();
+    outputFile.close();
 }
